@@ -36,5 +36,11 @@ class AdminController extends Controller
         return view('admin.login');
     }
 
+    public function login_user(Request $request){
+        if($request->isMethod('post')){
+            preview($request->input("email"));
+        }
+    }
+
 
 }

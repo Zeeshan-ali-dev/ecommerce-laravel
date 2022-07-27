@@ -1,6 +1,5 @@
 <?php
 
-function preview(){
-    echo NAME;
-    echo config('app.name');
+function preview($data){
+    echo "<pre>"; print_r($data); exit;
 }
