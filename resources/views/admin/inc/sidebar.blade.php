@@ -19,12 +19,34 @@
             <span>Dashboard</span></a>
     </li>
 
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('users')}} ">
-            <i class="fas fa-fw fa-users"></i>
-            <span>Users</span></a>
-    </li>
 
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne"
+            aria-expanded="true" aria-controls="collapseOne">
+            <i class="fas fa-fw fa-users"></i>
+            <span>Users</span>
+        </a>
+        <div id="collapseOne" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{ route('users')}} ">Users</a>
+            </div>
+        </div>
+    </li>
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+            aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Products</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{route('product-listing')}}">Products</a>
+                <a class="collapse-item" href="{{route('add-product')}}">Add Product</a>
+            </div>
+        </div>
+    </li>
     {{-- <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"

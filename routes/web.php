@@ -29,4 +29,9 @@ Route::get('/contact', [SiteController::class, 'contact']);
 Route::prefix('admin')->group(function(){
     Route::get('/', [AdminController::class, 'index'])->name("admin");
     Route::get('/users', [AdminController::class, 'users'])->name('users');
+    Route::get('/products', [AdminController::class, 'products'])->name('product-listing');
+    Route::get('/add-product', [AdminController::class, 'add_product'])->name('add-product');
+    Route::get('user-details/{id}',  [AdminController::class, 'user_details'])->name('user-details');
+    Route::get('profile-settings',  [AdminController::class, 'profile_settings'])->name('profile-settings');
+    Route::get('login',  [AdminController::class, 'login']);
 });
