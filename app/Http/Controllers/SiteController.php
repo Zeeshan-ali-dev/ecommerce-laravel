@@ -9,7 +9,6 @@ class SiteController extends Controller
     //
 
     public function index(){
-        preview();
         echo "this is home ";
     }
 
