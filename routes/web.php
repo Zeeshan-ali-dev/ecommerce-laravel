@@ -29,10 +29,15 @@ Route::get('/contact', [SiteController::class, 'contact']);
 Route::prefix('admin')->group(function(){
     Route::get('/', [AdminController::class, 'index'])->name("admin");
     Route::get('/users', [AdminController::class, 'users'])->name('users');
+    Route::get('/retailers', [AdminController::class, 'retailers'])->name('retailers');
+    Route::get('/customers', [AdminController::class, 'customers'])->name('customers');
     Route::get('/products', [AdminController::class, 'products'])->name('product-listing');
     Route::get('/add-product', [AdminController::class, 'add_product'])->name('add-product');
     Route::get('/user-details/{id}',  [AdminController::class, 'user_details'])->name('user-details');
     Route::get('/profile-settings',  [AdminController::class, 'profile_settings'])->name('profile-settings');
+    Route::get('/orders',  [AdminController::class, 'orders'])->name('orders');
+    Route::get('/pending-orders',  [AdminController::class, 'pending_orders'])->name('pending-orders');
+    Route::get('/completed-orders',  [AdminController::class, 'completed_orders'])->name('completed-orders');
     Route::get('/login',  [AdminController::class, 'login']);
     Route::post('/login', [AdminController::class, 'login_user'])->name('login');
 });

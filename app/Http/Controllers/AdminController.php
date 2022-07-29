@@ -18,6 +18,16 @@ class AdminController extends Controller
     public function users(){
         return view('admin.users.users');
     }
+    
+    
+    public function retailers(){
+        return view('admin.users.users');
+    }
+    
+    
+    public function customers(){
+        return view('admin.users.users');
+    }
 
     public function products(){
         return view('admin.products.products');
@@ -91,5 +101,16 @@ class AdminController extends Controller
         echo 'this is something';
     }
 
+    public function orders(){
+        echo 'order listing';
+    }
+
+    public function pending_orders(){
+        echo 'pending orders';
+    }
+
+    public function completed_orders(){
+        echo 'completed orders';
+    }
 
 }

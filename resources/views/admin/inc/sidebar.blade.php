@@ -30,6 +30,8 @@
         <div id="collapseOne" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{ route('users')}} ">Users</a>
+                <a class="collapse-item" href="{{ route('retailers')}} ">Retailers</a>
+                <a class="collapse-item" href="{{ route('customers')}} ">Customers</a>
             </div>
         </div>
     </li>
@@ -47,6 +49,23 @@
             </div>
         </div>
     </li>
+
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
+            aria-expanded="true" aria-controls="collapseThree">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Orders</span>
+        </a>
+        <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{route('orders')}}">All Orders</a>
+                <a class="collapse-item" href="{{route('pending-orders')}}">Pending Orders</a>
+                <a class="collapse-item" href="{{route('completed-orders')}}">Completed Orders</a>
+            </div>
+        </div>
+    </li>
+
     {{-- <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
