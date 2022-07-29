@@ -65,6 +65,36 @@ class AdminController extends Controller
         }
     }
 
+    public function orders(){
+        return view('admin.orders.orders');
+    }
+
+    public function pending_orders(){
+        return view('admin.orders.orders');
+    }
+
+    public function completed_orders(){
+        return view('admin.orders.orders');
+    }
+
+    public function order_details($id = false){
+        echo decrypt($id);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //  ==================== Temp ==================================
+    
     public function set_session(){
         $isset = session()->has('is_logged_in');
         if($isset){
@@ -101,16 +131,6 @@ class AdminController extends Controller
         echo 'this is something';
     }
 
-    public function orders(){
-        echo 'order listing';
-    }
 
-    public function pending_orders(){
-        echo 'pending orders';
-    }
-
-    public function completed_orders(){
-        echo 'completed orders';
-    }
 
 }

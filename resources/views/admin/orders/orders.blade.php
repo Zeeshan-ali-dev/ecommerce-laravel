@@ -3,7 +3,7 @@
 @section('content')
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Users</h1>
+        <h1 class="h3 mb-0 text-gray-800">Orders</h1>
     </div>
 
 
@@ -23,6 +23,7 @@
                             <th>Age</th>
                             <th>Start date</th>
                             <th>Salary</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -33,6 +34,7 @@
                             <td>61</td>
                             <td>2011/04/25</td>
                             <td>$320,800</td>
+                            <td><a href="{{route('order-details', encrypt(1))}}" class="text-info">Details</a></td>
                         </tr>
                     </tbody>
                 </table>

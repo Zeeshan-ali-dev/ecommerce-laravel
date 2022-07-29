@@ -38,12 +38,17 @@ Route::prefix('admin')->group(function(){
     Route::get('/orders',  [AdminController::class, 'orders'])->name('orders');
     Route::get('/pending-orders',  [AdminController::class, 'pending_orders'])->name('pending-orders');
     Route::get('/completed-orders',  [AdminController::class, 'completed_orders'])->name('completed-orders');
+    Route::get('/order-details/{id}',  [AdminController::class, 'order_details'])->name('order-details');
     Route::get('/login',  [AdminController::class, 'login']);
     Route::post('/login', [AdminController::class, 'login_user'])->name('login');
 });
 
 
+
+// ================= Temp =======================
+
 Route::get('/session', [AdminController::class, 'set_session']);
 Route::get('/destroy', [AdminController::class, 'logout']);
 Route::get('/model', [AdminController::class, 'model']);
 Route::get('/check', [AdminController::class, 'checkSomething'])->middleware('isLoggedIn');
+Route::get('/crypt', [AdminController::class, 'encryption']);
