@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use App\Models\User;
+use App\Models\Product;
 
 
 class AdminController extends Controller
@@ -20,8 +21,10 @@ class AdminController extends Controller
     }
     
     
-    public function retailers(){
-        return view('admin.users.users');
+    public function admins(){
+        $users = User::where(['role' => ADMIN])->get();
+        $data['users'] = $users ? $users : '';
+        return view('admin.users.users', $data);
     }
     
     
@@ -30,11 +33,83 @@ class AdminController extends Controller
     }
 
     public function products(){
-        return view('admin.products.products');
+        $products = Product::all();
+        $data['products'] = $products ? $products : '';
+        return view('admin.products.products', $data);
     }
 
     public function add_product(){
         return view('admin.products.addProduct');
+    }
+
+    public function edit_product($id){
+        $product = Product::where(['id' => decrypt($id)])->first();
+        $data['product'] = $product ? $product : '';
+        // dd($product);
+        return view('admin.products.editProduct', $data);
+    }
+
+    public function update_product(Request $request,$id){
+        if($request->isMethod("post")){
+            $name = $request->input('product_name');
+            $price = $request->input("product_price");
+            $description = $request->input('product_description');
+            $errors = '';
+
+            if(!$errors){
+                $product_data = [
+                    'name' => $name,
+                    'price' => $price,
+                    'description' => $description
+                ];
+
+                $res = Product::where(['id' => decrypt($id)])->update($product_data);
+                if($res){
+                    return redirect()->route('edit-product', $id)->with('success', 'Product updated successfully');
+                }else{
+                    return redirect()->route('edit-product', $id)->with('error', 'Something went wrong!');
+                }
+            }
+        }
+    }
+
+    public function insert_product(Request $request){
+        if($request->isMethod('post')){
+            $name = $request->input("product_name");
+            $price = $request->input('product_price');
+            $description = $request->input("product_description");
+            $errors = '';
+
+            if(!$errors){
+                $product_data = [
+                    'name' => $name,
+                    'price' => $price,
+                    'description' => $description
+                ];
+
+                $res = Product::create($product_data);
+                if($res){
+                    return redirect()->route('product-listing')->with('success', 'Product inserted successfully');
+                }else{
+                    return redirect()->route('add-product')->with("error", 'Something went wrong!');
+                }
+            }
+        }
+    }
+
+    public function delete_product($id){
+        $res = Product::find(decrypt($id))->delete();
+        if($res){
+            return redirect()->route('product-listing')->with('success', 'Product deleted successfully');
+        }else{
+            return redirect()->route('product-listing')->with('error', 'Something went wrong!');
+        }
+    }
+
+    public function product_details($id){
+        $product = Product::find(decrypt($id))->first();
+        $data['product'] = $product ? $product : '';
+        return view('admin.products.productDetails', $data);
     }
 
 
@@ -61,7 +136,19 @@ class AdminController extends Controller
                 'password' => Hash::make($password)
             ];
 
-            preview($user_data);
+            $user = User::where(['email' => $email])->first();
+            if($user){
+                $res = Hash::check($password, $user->password);
+                if($res){
+                    session()->put("is_logged_in", true);
+                    session()->put("id", $user->id);
+                    return redirect()->route('admin')->with("success", "you are successfully logged in");
+                }else{
+                    return redirect('/login')->with("error", "Invalid Credentials!!");
+                }
+            }else{
+                return redirect('/login')->with("error", "User not found!");
+            }
         }
     }
 
@@ -82,54 +169,14 @@ class AdminController extends Controller
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-    //  ==================== Temp ==================================
-    
-    public function set_session(){
-        $isset = session()->has('is_logged_in');
-        if($isset){
-            echo 'session already set ha <br>';
-        }else{
-            echo 'session set ni tha <br>';
-            session()->put('is_logged_in', true);
-            echo session()->get('is_logged_in');
-        }
-
-    }
-
-
     public function logout(){
-        session()->forget('is_logged_in');
-        // echo Hash::make('12345');
-
-        // preview(session()->all());
+        session()->flush();
+        return redirect('/login');
     }
 
 
-    public function model(){
-        $user = User::where(['email' => 'admin@gmail.com'])->first();
-        // preview($user);
-        if(Hash::check('12345', $user->password)){
-            echo 'password matched';
-        }else{
-            echo 'Invalid password';
-        }
-    }
+ 
 
-
-    public function checkSomething(){
-        echo 'this is something';
-    }
 
 
 

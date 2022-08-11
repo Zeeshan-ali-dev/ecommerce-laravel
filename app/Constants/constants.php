@@ -1,6 +1,5 @@
 <?php
 
-define("NAME", 'zeeshan');
 
 // ========= User Roles ===============
 

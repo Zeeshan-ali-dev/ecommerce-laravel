@@ -20,8 +20,7 @@ class isLoggedIn
             
             return $next($request);
         }else{
-            echo 'not logged in';
-            exit;
+            return redirect('/login')->with('error', 'You are not logged in');
         }
     }
 }

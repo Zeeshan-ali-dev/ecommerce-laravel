@@ -26,21 +26,27 @@ Route::get('/contact', [SiteController::class, 'contact']);
 // ========================== Admin Routes =====================
 
 
-Route::prefix('admin')->group(function(){
+Route::get('/login',  [AdminController::class, 'login']);
+Route::post('/login', [AdminController::class, 'login_user'])->name('login');
+Route::middleware('isLoggedIn')->prefix('admin')->group(function(){
     Route::get('/', [AdminController::class, 'index'])->name("admin");
     Route::get('/users', [AdminController::class, 'users'])->name('users');
-    Route::get('/retailers', [AdminController::class, 'retailers'])->name('retailers');
+    Route::get('/admins', [AdminController::class, 'admins'])->name('admins');
     Route::get('/customers', [AdminController::class, 'customers'])->name('customers');
     Route::get('/products', [AdminController::class, 'products'])->name('product-listing');
     Route::get('/add-product', [AdminController::class, 'add_product'])->name('add-product');
+    Route::post('/insert-product', [AdminController::class, 'insert_product'])->name('insert-product');
+    Route::get('/edit-product/{id}', [AdminController::class, 'edit_product'])->name('edit-product');
+    Route::post('/update-product/{id}', [AdminController::class, 'update_product'])->name('update-product');
+    Route::get('/delete-product/{id}',  [AdminController::class, 'delete_product'])->name('delete-product');
+    Route::get('/product-details/{id}',  [AdminController::class, 'product_details'])->name('product-details');
     Route::get('/user-details/{id}',  [AdminController::class, 'user_details'])->name('user-details');
     Route::get('/profile-settings',  [AdminController::class, 'profile_settings'])->name('profile-settings');
     Route::get('/orders',  [AdminController::class, 'orders'])->name('orders');
     Route::get('/pending-orders',  [AdminController::class, 'pending_orders'])->name('pending-orders');
     Route::get('/completed-orders',  [AdminController::class, 'completed_orders'])->name('completed-orders');
     Route::get('/order-details/{id}',  [AdminController::class, 'order_details'])->name('order-details');
-    Route::get('/login',  [AdminController::class, 'login']);
-    Route::post('/login', [AdminController::class, 'login_user'])->name('login');
+    Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
 });
 
 
