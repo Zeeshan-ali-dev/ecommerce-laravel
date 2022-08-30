@@ -9,14 +9,30 @@ class SiteController extends Controller
     //
 
     public function index(){
-        echo "this is home ";
+       return view('user.home');
     }
 
     public function about(){
-        echo "we are on about";
+        return view('user.about');
     }
 
     public function contact(){
-        echo "we are on contact";
+        return view('user.contact');
+    }
+
+    public function shop(){
+        return view('user.shop');
+    }
+
+    public function cart(){
+        return view('user.cart');
+    }
+
+    public function login(){
+        return view('user.login');
+    }
+
+    public function product_details(){
+        return view('user.product-details');
     }
 }

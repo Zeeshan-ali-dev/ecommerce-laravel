@@ -15,9 +15,15 @@ use App\Http\Controllers\AdminController;
 |
 */
 
-Route::get('/', [SiteController::class, 'index']);
-Route::get('/about', [SiteController::class, 'about']);
-Route::get('/contact', [SiteController::class, 'contact']);
+// ================ Site Routes ==============================
+
+Route::get("/shop", [SiteController::class, 'shop'])->name("shop");
+Route::get('/', [SiteController::class, 'index'])->name("home");
+Route::get('/about', [SiteController::class, 'about'])->name("about");
+Route::get('/contact', [SiteController::class, 'contact'])->name("contact");
+Route::get('/login', [SiteController::class, 'login'])->name("login");
+Route::get('/cart', [SiteController::class, 'cart'])->name("cart");
+Route::get('/product-details', [SiteController::class, 'product_details'])->name("product-details");
 
 
 
@@ -26,7 +32,7 @@ Route::get('/contact', [SiteController::class, 'contact']);
 // ========================== Admin Routes =====================
 
 
-Route::get('/login',  [AdminController::class, 'login']);
+// Route::get('/login',  [AdminController::class, 'login']);
 Route::post('/login', [AdminController::class, 'login_user'])->name('login');
 Route::middleware('isLoggedIn')->prefix('admin')->group(function(){
     Route::get('/', [AdminController::class, 'index'])->name("admin");
@@ -48,6 +54,10 @@ Route::middleware('isLoggedIn')->prefix('admin')->group(function(){
     Route::get('/order-details/{id}',  [AdminController::class, 'order_details'])->name('order-details');
     Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
 });
+
+
+
+
 
 
 
