@@ -18,7 +18,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-12">
                             <div class="profile_img_wrapper">
-                                    <img width="100" height="100" src="http://localhost/cataboltswap/assets/admin_assets/img/user_images/default.svg" alt="">
+                                    <img width="100" height="100" src="{{asset("images/$product->img")}}" alt="">
                                     <label class="profile_img--overlay" for="pf_img">
                                     <i class="fas fa-upload"></i>
                                     <label>Upload</label>

@@ -23,8 +23,11 @@ Route::get('/about', [SiteController::class, 'about'])->name("about");
 Route::get('/contact', [SiteController::class, 'contact'])->name("contact");
 Route::get('/login', [SiteController::class, 'login'])->name("login");
 Route::get('/cart', [SiteController::class, 'cart'])->name("cart");
-Route::get('/product-details', [SiteController::class, 'product_details'])->name("product-details");
-
+Route::get('/p-details/{id}', [SiteController::class, 'product_details'])->name("p-details");
+Route::post('/login', [SiteController::class, 'login_user'])->name('login-user');
+Route::get("/signup", [SiteController::class, 'signup'])->name("signup");
+Route::post("/signup-user", [SiteController::class, 'signup_user'])->name('signup-user');
+Route::post("/subscribe", [AdminController::class, 'insert_subscriber'])->name("subscribe");
 
 
 
@@ -33,7 +36,7 @@ Route::get('/product-details', [SiteController::class, 'product_details'])->name
 
 
 // Route::get('/login',  [AdminController::class, 'login']);
-Route::post('/login', [AdminController::class, 'login_user'])->name('login');
+// Route::post('/login', [AdminController::class, 'login_user'])->name('login');
 Route::middleware('isLoggedIn')->prefix('admin')->group(function(){
     Route::get('/', [AdminController::class, 'index'])->name("admin");
     Route::get('/users', [AdminController::class, 'users'])->name('users');

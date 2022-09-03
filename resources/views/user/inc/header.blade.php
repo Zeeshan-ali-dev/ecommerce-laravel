@@ -23,7 +23,7 @@
                 <div class="col-2 col-sm-4 col-md-3 col-lg-4 text-right">
                 	<span class="user-menu d-block d-lg-none"><i class="anm anm-user-al" aria-hidden="true"></i></span>
                     <ul class="customer-links list-inline">
-                        <li><a href="login.html">Login</a></li>
+                        <li><a href="{{route('login')}}">Login</a></li>
                         <!-- <li><a href="register.html">Create Account</a></li> -->
                         <!-- <li><a href="wishlist.html">Wishlist</a></li> -->
                     </ul>
@@ -78,7 +78,7 @@
                 	<div class="site-cart">
                     	<a href="#" class="site-header__cart" title="Cart">
                         	<i class="icon anm anm-bag-l"></i>
-                            <span id="CartCount" class="site-header__cart-count" data-cart-render="item_count">2</span>
+                            <span id="CartCount" class="site-header__cart-count" data-cart-render="item_count"><?= get_cart_num(); ?></span>
                         </a>
                         <!--Minicart Popup-->
                         <div id="header-cart" class="block block-cart">
@@ -156,13 +156,13 @@
     <div class="mobile-nav-wrapper" role="navigation">
 		<div class="closemobileMenu"><i class="icon anm anm-times-l pull-right"></i> Close Menu</div>
         <ul id="MobileNav" class="mobile-nav">
-        	<li class="lvl1 parent megamenu"><a href="index.html">Home</a>
+        	<li class="lvl1 parent megamenu"><a href="{{route('home')}}">Home</a>
             </li>
-            <li><a href="shop.html" class="site-nav">Shop</a>
+            <li><a href="{{route('shop')}}" class="site-nav">Shop</a>
             </li>
-            <li><a href="aboutus.html" class="site-nav">About</a>
+            <li><a href="{{route('about')}}" class="site-nav">About</a>
             </li>
-            <li><a href="contact.html" class="site-nav">Contact</a>
+            <li><a href="{{route('contact')}}" class="site-nav">Contact</a>
             </li>
           </ul>
         </li>

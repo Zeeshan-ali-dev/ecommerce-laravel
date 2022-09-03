@@ -43,7 +43,7 @@
                 ><i class="anm anm-user-al" aria-hidden="true"></i
               ></span>
               <ul class="customer-links list-inline">
-                <li><a href="login.html">Login</a></li>
+                <li><a href="{{route('login')}}">Login</a></li>
                 <!-- <li><a href="register.html">Create Account</a></li> -->
                 <!-- <li><a href="wishlist.html">Wishlist</a></li> -->
               </ul>
@@ -82,18 +82,18 @@
                 <!-- for mobile -->
                 <ul id="siteNav" class="site-nav medium center hidearrow">
                   <li class="lvl1 parent megamenu">
-                    <a href="index.html"
+                    <a href="{{route('home')}}"
                       >Home</i
                     ></a>
                   </li>
                   <li class="lvl1 parent megamenu">
-                    <a href="shop.html">Shop</a>
+                    <a href="{{route('shop')}}">Shop</a>
                   </li>
                   <li class="lvl1 parent megamenu">
-                    <a href="aboutus.html">About</a>
+                    <a href="{{route('about')}}">About</a>
                   </li>
                   <li class="lvl1 parent dropdown">
-                    <a href="contact.html">Contact</a>
+                    <a href="{{route('contact')}}">Contact</a>
                   </li>
                 </ul>
               </nav>
@@ -120,7 +120,7 @@
                     id="CartCount"
                     class="site-header__cart-count"
                     data-cart-render="item_count"
-                    >2</span
+                    ><?= get_cart_num(); ?></span
                   >
                 </a>
                 <!--Minicart Popup-->

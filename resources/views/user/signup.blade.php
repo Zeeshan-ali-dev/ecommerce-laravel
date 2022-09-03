@@ -19,7 +19,7 @@
               <div class="mb-4">
                 <form
                   method="post"
-                  action="{{route('login-user')}}"
+                  action="{{route('signup-user')}}"
                   id="CustomerLoginForm"
                   accept-charset="UTF-8"
                   class="contact-form"
@@ -60,14 +60,10 @@
                     <div
                       class="text-center col-12 col-sm-12 col-md-12 col-lg-12"
                     >
-                      <input type="submit" class="btn mb-3" value="Sign In" />
+                      <input type="submit" class="btn mb-3" value="Sign Up" />
                       <p class="mb-4">
-                        <a href="#" id="RecoverPassword"
-                          >Forgot your password?</a
-                        >
-                        &nbsp; | &nbsp;
-                        <a href="{{route("signup")}}" id="customer_register_link"
-                          >Create account</a
+                        <a href="{{route('login')}}" id="customer_register_link"
+                          >Already have an account?</a
                         >
                       </p>
                     </div>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use App\Models\User;
+use App\Models\Subscriber;
 use App\Models\Product;
 
 
@@ -29,7 +30,9 @@ class AdminController extends Controller
     
     
     public function customers(){
-        return view('admin.users.users');
+        $users = User::where(['role' => CUSTOMER])->get();
+        $data['users'] = $users ? $users : '';
+        return view('admin.users.users', $data);
     }
 
     public function products(){
@@ -56,12 +59,19 @@ class AdminController extends Controller
             $description = $request->input('product_description');
             $errors = '';
 
+            $product_img_name = time().'.'.$request->product_img->extension();
+            $img = $request->product_img->move(public_path('images'), $product_img_name);
+
             if(!$errors){
                 $product_data = [
                     'name' => $name,
                     'price' => $price,
                     'description' => $description
                 ];
+
+                if($img){
+                    $product_data['img'] = $product_img_name;
+                }
 
                 $res = Product::where(['id' => decrypt($id)])->update($product_data);
                 if($res){
@@ -80,12 +90,20 @@ class AdminController extends Controller
             $description = $request->input("product_description");
             $errors = '';
 
+            $product_img_name = time().'.'.$request->product_img->extension();
+            $img = $request->product_img->move(public_path('images'), $product_img_name);
+
             if(!$errors){
                 $product_data = [
                     'name' => $name,
                     'price' => $price,
                     'description' => $description
                 ];
+
+                if($img){
+                    $product_data['img'] = $product_img_name;
+                }
+
 
                 $res = Product::create($product_data);
                 if($res){
@@ -172,6 +190,35 @@ class AdminController extends Controller
     public function logout(){
         session()->flush();
         return redirect('/login');
+    }
+
+
+    public function encryption(){
+        $num = 12345;
+        echo Hash::make($num);
+    }
+
+
+    public function insert_subscriber(Request $request){
+        if($request->isMethod("post")){
+            $email = $request->input('email');
+            $errors = '';
+            $exist = Subscriber::find(['email' => $email])->first();
+            if($exist){
+                $errors .= 'Email already exists';
+            }
+
+            if(!$errors){
+                $res = Subscriber::create(['email' => $email]);
+                if($res){
+                    return redirect()->back();
+                }else{
+                    return redirect()->back();
+                }
+            }else{
+                return redirect()->back();
+            }
+        }
     }
 
 

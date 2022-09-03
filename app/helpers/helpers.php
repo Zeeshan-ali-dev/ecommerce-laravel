@@ -26,3 +26,8 @@ function get_user(){
         return redirect('/admin/login')->with('error', 'You have to log in first');
     }
 }
+
+function get_cart_num(){
+    $cart_num = 5;
+    return $cart_num;
+}
