@@ -54,15 +54,20 @@
                             	<h2>Price</h2>
                             </div>
                             <form action="#" method="post" class="price-filter">
-                                <div id="slider-range" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                                {{-- <div id="slider-range" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
                                 	<div class="ui-slider-range ui-widget-header ui-corner-all"></div>
                                     <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
                                     <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                                </div> --}}
+                                <div class="d-flex">
+                                    <label for="" id="points_min">£<span><?= $min_price ? $min_price : 0 ?></span></label>
+                                    <input type="range" id="points" name="points"  min="<?= $min_price ? $min_price : 0 ?>" max="<?= $max_price ? $max_price : 0 ?>" value="<?= $max_price ? $max_price : 0 ?>">
+                                    <label for="" id="points_curr">£<span><?= $max_price ? $max_price : 0 ?></span></label>
                                 </div>
                                 <div class="row">
-                                    <div class="col-6">
+                                    {{-- <div class="col-6">
                                         <p class="no-margin"><input id="amount" type="text"></p>
-                                    </div>
+                                    </div> --}}
                                     <div class="col-6 text-right margin-25px-top">
                                         <button class="btn btn-secondary btn--small">filter</button>
                                     </div>
@@ -95,6 +100,7 @@
     
                                         <!-- Start product button -->
                                         <form class="variants add" action="#" method="post">
+                                            <a href="{{route("p-details", encrypt($product->id))}}"><button class="btn btn-addto-cart mb-3" type="button">Details</button></a>
                                             <button class="btn btn-addto-cart" type="button">Add to Cart</button>
                                         </form>
                                         <!-- end product button -->
@@ -128,4 +134,17 @@
         
     </div>
     <!--End Body Content-->
+@endsection
+
+@section('extra-scripts')
+
+    <script>
+        $(document).ready(function(){
+            $('body').on("change", '#points', function(){
+                console.log('change')
+                $("#points_curr span").text($(this).val())
+            })
+        })
+    </script>
+    
 @endsection

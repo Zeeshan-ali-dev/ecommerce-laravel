@@ -19,7 +19,7 @@
 </head>
 <body class="tm-index belle home4-fullwidth">
 <div id="pre-loader">
-    <img src="{{asset('user_assets/assets/images/loader.gif')}}" alt="Loading..." />
+    <img src="{{asset('user_assets/images/loader.gif')}}" alt="Loading..." />
 </div>
 <div class="pageWrapper">
 

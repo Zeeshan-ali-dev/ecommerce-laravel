@@ -27,8 +27,12 @@ class SiteController extends Controller
     }
 
     public function shop(){
+        $min_price = Product::min("price");
+        $max_price = Product::max("price");
         $products = Product::orderBy("id", 'desc')->get();
         $data['products'] = $products ? $products : '';
+        $data['min_price'] = $min_price ? $min_price : '';
+        $data['max_price'] = $max_price ? $max_price : '';
         return view('user.shop', $data);
     }
 
