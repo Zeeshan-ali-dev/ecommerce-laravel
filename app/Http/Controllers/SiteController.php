@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use App\Models\User;
 use App\Models\Product;
+use App\Models\Cart;
 
 class SiteController extends Controller
 {
@@ -113,5 +114,29 @@ class SiteController extends Controller
         $product = Product::where(['id' => decrypt($id)])->first();
         $data['product'] = $product ? $product : '';
         return view('user.product-details', $data);
+    }
+
+    public function add_to_cart(Request $request){
+        if(!session()->has('is_customer')){
+            return redirect()->route('login');
+        }
+        if($request->isMethod('post')){
+            $user_id = session()->get("id");
+            $product_id = $request->input('product_id');
+            $product_id = decrypt($product_id);
+            $cart = Cart::where(['user_id' => $user_id, 'product_id' => $product_id])->first();
+            if(!$cart){
+                $cart_data = [
+                    'user_id' => $user_id,
+                    'product_id' => $product_id,
+                    'quantity' => 1,
+                ];
+                Cart::create($cart_data);
+                return redirect()->back();
+            }else{
+                Cart::where(['id' => $cart->id])->update(['quantity' => $cart->quantity  + 1]);
+                return redirect()->back();
+            }
+        }
     }
 }

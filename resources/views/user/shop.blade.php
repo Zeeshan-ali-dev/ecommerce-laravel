@@ -99,9 +99,11 @@
                                         <!-- end product image -->
     
                                         <!-- Start product button -->
-                                        <form class="variants add" action="#" method="post">
+                                        <form class="variants add" action="{{route("add-to-cart")}}" method="post">
+                                            @csrf
                                             <a href="{{route("p-details", encrypt($product->id))}}"><button class="btn btn-addto-cart mb-3" type="button">Details</button></a>
-                                            <button class="btn btn-addto-cart" type="button">Add to Cart</button>
+                                            <input type="hidden" name="product_id" value="<?= encrypt($product->id) ?>">
+                                            <button class="btn btn-addto-cart" name="add_to_cart"  type="submit">Add to Cart</button>
                                         </form>
                                         <!-- end product button -->
                                     </div>

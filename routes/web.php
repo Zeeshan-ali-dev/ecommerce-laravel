@@ -28,6 +28,7 @@ Route::post('/login', [SiteController::class, 'login_user'])->name('login-user')
 Route::get("/signup", [SiteController::class, 'signup'])->name("signup");
 Route::post("/signup-user", [SiteController::class, 'signup_user'])->name('signup-user');
 Route::post("/subscribe", [AdminController::class, 'insert_subscriber'])->name("subscribe");
+Route::post("/add-to-card", [SiteController::class, 'add_to_cart'])->name("add-to-cart");
 
 
 

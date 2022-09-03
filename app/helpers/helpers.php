@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Crypt;
 use App\Models\User;
+use App\Models\Cart;
 
 function preview($data){
     echo "<pre>"; print_r($data); exit;
@@ -28,6 +29,11 @@ function get_user(){
 }
 
 function get_cart_num(){
-    $cart_num = 5;
+    if(session()->has('is_customer')){
+        $user_id = session()->get("id");
+        $cart_num = Cart::where(['user_id' => $user_id])->count();
+    }else{
+        $cart_num = 0;
+    }
     return $cart_num;
 }
