@@ -22,7 +22,7 @@
     <img src="{{asset('user_assets/images/loader.gif')}}" alt="Loading..." />
 </div>
 <div class="pageWrapper">
-
+    <?php notifications(); ?>
     @include('user.inc.header')
     
     @yield('content')

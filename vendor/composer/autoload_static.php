@@ -534,6 +534,7 @@ class ComposerStaticInit39de9a0df74c0843d4abb2da622e538a
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Http\\Middleware\\isLoggedIn' => __DIR__ . '/../..' . '/app/Http/Middleware/isLoggedIn.php',
         'App\\Models\\Cart' => __DIR__ . '/../..' . '/app/Models/Cart.php',
+        'App\\Models\\Order' => __DIR__ . '/../..' . '/app/Models/Order.php',
         'App\\Models\\Product' => __DIR__ . '/../..' . '/app/Models/Product.php',
         'App\\Models\\Subscriber' => __DIR__ . '/../..' . '/app/Models/Subscriber.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',

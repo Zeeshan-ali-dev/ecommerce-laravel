@@ -29,6 +29,10 @@ Route::get("/signup", [SiteController::class, 'signup'])->name("signup");
 Route::post("/signup-user", [SiteController::class, 'signup_user'])->name('signup-user');
 Route::post("/subscribe", [AdminController::class, 'insert_subscriber'])->name("subscribe");
 Route::post("/add-to-card", [SiteController::class, 'add_to_cart'])->name("add-to-cart");
+Route::post("/minus-product", [SiteController::class, 'minus_product'])->name("minus-product");
+Route::post("/plus-product", [SiteController::class, 'add_product'])->name("plus-product");
+Route::post("/remove-product", [SiteController::class, 'remove_product'])->name("remove-product");
+Route::post("/place-order", [SiteController::class, 'place_order'])->name("place-order");
 
 
 

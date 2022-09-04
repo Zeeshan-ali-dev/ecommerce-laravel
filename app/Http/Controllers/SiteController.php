@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Session;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Cart;
+use App\Models\Order;
 
 class SiteController extends Controller
 {
@@ -38,7 +39,30 @@ class SiteController extends Controller
     }
 
     public function cart(){
-        return view('user.cart');
+        if(!session()->has('is_customer')){
+            return redirect()->route('home');
+        }
+
+        $cart_items = Cart::where(['user_id' => session()->get('id')])->get();
+        $products = [];
+        $grandTotal = 0;
+        foreach($cart_items as $item){
+            $product = Product::where(['id' => $item->product_id])->first();
+            if($product){
+                $product->quantity = $item->quantity;
+                $product->cart_id = $item->id;
+                $products[] = $product;
+            }
+        }
+
+        foreach($products as $p){
+            $grandTotal += $p->price * $p->quantity;
+        }
+
+        $data['products'] = $products? $products : '';
+        $data['grandTotal'] = $grandTotal? $grandTotal : 0;
+
+        return view('user.cart', $data);
     }
 
     public function login(){
@@ -137,6 +161,79 @@ class SiteController extends Controller
                 Cart::where(['id' => $cart->id])->update(['quantity' => $cart->quantity  + 1]);
                 return redirect()->back();
             }
+        }
+    }
+
+    public function minus_product(Request $request){
+        if($request->isMethod('post')){
+            // preview($request->input());
+            $cartId = $request->input('cart_id');
+            $cartId = decrypt($cartId);
+            $cart = Cart::where(['id' => $cartId ])->first();
+            if($cart->quantity > 0){
+                Cart::where(['id' => $cartId])->update(['quantity' => $cart->quantity - 1 ]);
+                return redirect()->back();
+            }else{
+                Cart::where(['id' => $cartId])->delete();
+                return redirect()->back();
+            }
+        }
+    }
+    public function add_product(Request $request){
+        if($request->isMethod('post')){
+            // preview($request->input());
+            $cartId = $request->input('cart_id');
+            $cartId = decrypt($cartId);
+            $cart = Cart::where(['id' => $cartId ])->first();
+            Cart::where(['id' => $cartId])->update(['quantity' => $cart->quantity + 1 ]);
+            return redirect()->back();
+        }
+    }
+    public function remove_product(Request $request){
+        if($request->isMethod('post')){
+            // preview($request->input());
+            $cartId = $request->input('cart_id');
+            $cartId = decrypt($cartId);
+            $cart = Cart::where(['id' => $cartId ])->first();
+            Cart::where(['id' => $cartId])->delete();
+            return redirect()->back();
+
+        }
+    }
+
+    public function place_order(Request $request){
+        if($request->isMethod('post')){
+            if(!session()->has('is_customer')){
+                return redirect()->route('login');
+            }
+
+            $user_id = session()->get('id');
+            $cart_items = Cart::where(['user_id' => $user_id])->get();
+            $products = [];
+            $grandTotal = 0;
+            foreach($cart_items as $item){
+                $product = Product::where(['id' => $item->product_id])->first();
+                if($product){
+                    $product->quantity = $item->quantity;
+                    $product->cart_id = $item->id;
+                    $products[] = $product;
+                }
+            }
+
+            foreach($products as $p){
+                $grandTotal += $p->price * $p->quantity;
+            }
+
+            $order_data = [
+                'user_id' => $user_id,
+                'products' => json_encode($products),
+                'total' => $grandTotal,
+                'status' => PENDING,
+            ];
+
+            Order::create($order_data);
+            Cart::where(['user_id' => $user_id])->delete();
+            return redirect()->route('home')->with('success', 'Order placed successfuly');
         }
     }
 }
