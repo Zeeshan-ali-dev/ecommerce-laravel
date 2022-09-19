@@ -18,7 +18,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-12">
                             <div class="profile_img_wrapper">
-                                    <img width="100" height="100" src="http://localhost/cataboltswap/assets/admin_assets/img/user_images/default.svg" alt="">
+                                    <img width="100" height="100" src="" alt="">
                                     <label class="profile_img--overlay" for="pf_img">
                                     <i class="fas fa-upload"></i>
                                     <label>Upload</label>
@@ -37,6 +37,17 @@
                         <div class="form-group col-md-12 col-sm-12">
                             <label class="small mb-1" for="inputindividual">Product Price</label>
                             <input class="form-control" id="inputindividual" type="number" placeholder="Enter individual products's price" name="product_price" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12 col-sm-12">
+                            <label class="small mb-1" for="inputindividual">Product Category</label>
+                            <select name="category" id="" class="form-control">
+                                <option value="{{WARM}}">WARM</option>
+                                <option value="{{COOL}}">COOL</option>
+                                <option value="{{SMOOTH}}">SMOOTH</option>
+                                <option value="{{TEXTURE}}">TEXTURE</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-row">

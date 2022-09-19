@@ -13,6 +13,7 @@
                             <div class="slideshow__text-content middle">
                                 <div class="wrap-caption center">
                                     <h2 class="h1 mega-title slideshow__title">Belle Best Selling</h2>
+                                    <h3 class="h1 mega-title slideshow__title" style="font-size: 40px">H5574572 - EMA - TM470</h3>
                                     <span class="mega-subtitle slideshow__subtitle">Unique products by the world's top  designer</span>
                                     <a href="{{route('shop')}}"><span class="btn">Explore now</span></a>
                                 </div>

@@ -37,6 +37,7 @@ Route::post("/place-order", [SiteController::class, 'place_order'])->name("place
 
 
 
+
 // ========================== Admin Routes =====================
 
 
@@ -61,6 +62,7 @@ Route::middleware('isLoggedIn')->prefix('admin')->group(function(){
     Route::get('/completed-orders',  [AdminController::class, 'completed_orders'])->name('completed-orders');
     Route::get('/order-details/{id}',  [AdminController::class, 'order_details'])->name('order-details');
     Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
+    Route::get("/fill-order/{id}", [AdminController::class, 'fill_order'])->name("fill-order");
 });
 
 

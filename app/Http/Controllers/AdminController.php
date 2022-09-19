@@ -8,13 +8,24 @@ use Illuminate\Support\Facades\Session;
 use App\Models\User;
 use App\Models\Subscriber;
 use App\Models\Product;
+use App\Models\Order;
 
 
 class AdminController extends Controller
 {
     //
     public function index(){
-        return view('admin.dashboard');
+        $totalEarnings = Order::where(['status' => FILLED])->sum('total');
+        $pendingEarnings = Order::where(['status' => PENDING])->sum('total');
+        $pendingOrders = Order::where(['status' => PENDING])->count();
+        $completeOrders = Order::where(['status' => FILLED])->count();
+        $data = [
+            'total_earnings' => $totalEarnings,
+            'pending_earnings' => $pendingEarnings,
+            'complete_orders' => $completeOrders,
+            'pending_orders' => $pendingOrders
+        ];
+        return view('admin.dashboard', $data);
     }
 
     public function users(){
@@ -88,6 +99,7 @@ class AdminController extends Controller
             $name = $request->input("product_name");
             $price = $request->input('product_price');
             $description = $request->input("product_description");
+            $category = $request->input('category');
             $errors = '';
 
             $product_img_name = time().'.'.$request->product_img->extension();
@@ -97,12 +109,14 @@ class AdminController extends Controller
                 $product_data = [
                     'name' => $name,
                     'price' => $price,
-                    'description' => $description
+                    'description' => $description,
+                    'category' => $category
                 ];
 
                 if($img){
                     $product_data['img'] = $product_img_name;
                 }
+
 
 
                 $res = Product::create($product_data);
@@ -171,19 +185,51 @@ class AdminController extends Controller
     }
 
     public function orders(){
-        return view('admin.orders.orders');
+        $orders = Order::all();
+        $orderList = [];
+        foreach($orders as $order){
+            $user = User::where(['id' => $order->user_id])->first();
+            $order->user = $user;
+            $orderList[] = $order;
+        }
+
+        $data['orders'] = $orderList ? $orderList : '';
+        return view('admin.orders.orders', $data);
     }
 
     public function pending_orders(){
-        return view('admin.orders.orders');
+        $orders = Order::where(['status' => PENDING])->get();
+        $orderList = [];
+        foreach($orders as $order){
+            $user = User::where(['id' => $order->user_id])->first();
+            $order->user = $user;
+            $orderList[] = $order;
+        }
+
+        $data['orders'] = $orderList ? $orderList : '';
+        return view('admin.orders.orders', $data);
     }
 
     public function completed_orders(){
-        return view('admin.orders.orders');
+        $orders = Order::where(['status' => FILLED])->get();
+        $orderList = [];
+        foreach($orders as $order){
+            $user = User::where(['id' => $order->user_id])->first();
+            $order->user = $user;
+            $orderList[] = $order;
+        }
+
+        $data['orders'] = $orderList ? $orderList : '';
+        return view('admin.orders.orders', $data);
     }
 
     public function order_details($id = false){
-        echo decrypt($id);
+        $orderId = decrypt($id);
+        $order = Order::where(['id' => $orderId])->first();
+        $user = User::where(['id' => $order->user_id])->first();
+        $order->user = $user;
+        $data['order'] = $order;
+        return view('admin.orders.orderdetails', $data);
     }
 
 
@@ -223,7 +269,11 @@ class AdminController extends Controller
 
 
  
-
+    public function fill_order($id){
+        $orderId = decrypt($id);
+        Order::where(['id' => $orderId])->update(['status' => FILLED]);
+        return redirect()->route('orders')->with("success", 'Order is filled success fully');
+    }
 
 
 

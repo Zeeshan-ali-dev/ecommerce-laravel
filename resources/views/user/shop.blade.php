@@ -23,27 +23,10 @@
                             <div class="widget-title"><h2>Categories</h2></div>
                             <div class="widget-content">
                                 <ul class="sidebar_categories">
-                                    <li class="level1 sub-level"><a href="#;" class="site-nav">Material</a>
-                                    	<ul class="sublinks">
-                                        	<li class="level2"><a href="#;" class="site-nav">Material</a></li>
-                                            <li class="level2"><a href="#;" class="site-nav">Smooth</a></li>
-                                            <li class="level2"><a href="#;" class="site-nav">Child</a></li>
-                                            <li class="level2"><a href="#;" class="site-nav">View All Clothing</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="level1 sub-level"><a href="#;" class="site-nav">Smooth</a>
-                                    	<ul class="sublinks">
-                                        	<li class="level2"><a href="#;" class="site-nav">Ring</a></li>
-                                            <li class="level2"><a href="#;" class="site-nav">Neckalses</a></li>
-                                            <li class="level2"><a href="#;" class="site-nav">Eaarings</a></li>
-                                            <li class="level2"><a href="#;" class="site-nav">View All Jewellery</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="lvl-1"><a href="#;" class="site-nav">Flowers</a></li>
-                                    <li class="lvl-1"><a href="#;" class="site-nav">Accessories</a></li>
-                                    <li class="lvl-1"><a href="#;" class="site-nav">Collections</a></li>
-                                    <li class="lvl-1"><a href="#;" class="site-nav">Sale</a></li>
-                                    <li class="lvl-1"><a href="#;" class="site-nav">Page</a></li>
+                                    <li class="lvl-1"><a href="{{url("/shop?cat=0")}}" class="site-nav">Warm</a></li>
+                                    <li class="lvl-1"><a href="{{url("/shop?cat=1")}}" class="site-nav">Cool</a></li>
+                                    <li class="lvl-1"><a href="{{url("/shop?cat=2")}}" class="site-nav">Texture</a></li>
+                                    <li class="lvl-1"><a href="{{url("/shop?cat=3")}}" class="site-nav">Smooth</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -69,7 +52,7 @@
                                         <p class="no-margin"><input id="amount" type="text"></p>
                                     </div> --}}
                                     <div class="col-6 text-right margin-25px-top">
-                                        <button class="btn btn-secondary btn--small">filter</button>
+                                        <button class="btn btn-secondary btn--small btn-filter" type="button">filter</button>
                                     </div>
                                 </div>
                             </form>
@@ -145,6 +128,13 @@
             $('body').on("change", '#points', function(){
                 console.log('change')
                 $("#points_curr span").text($(this).val())
+            })
+
+            $('body').on("click", '.btn-filter', function(){
+                let url = '<?= url("/shop") ?>';
+                let min = $('#points_min span').text();
+                let max = $('#points_curr span').text();
+                window.location.href = `${url}?min=${min}&max=${max}`;
             })
         })
     </script>

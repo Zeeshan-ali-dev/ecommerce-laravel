@@ -28,11 +28,26 @@ class SiteController extends Controller
         return view('user.contact');
     }
 
-    public function shop(){
+    public function shop(Request $request){
+        $data = [];
+        if($request->isMethod('get')){
+            $cat = $request->get("cat");
+            $min = $request->get("min");
+            $max = $request->get("max");
+            if($cat != null){
+                $products = Product::where(['category' => $cat])->orderBy("id", 'desc')->get();
+                $data['products'] = $products ? $products : '';
+            }else if($min != null && $max != null){
+                $products = Product::where('price', '>=', $min)->where('price', '<=', $max)->orderBy("id", 'desc')->get();
+                $data['products'] = $products ? $products : '';
+            }else{
+                $products = Product::orderBy("id", 'desc')->get();
+                $data['products'] = $products ? $products : '';
+            }
+        }
         $min_price = Product::min("price");
         $max_price = Product::max("price");
-        $products = Product::orderBy("id", 'desc')->get();
-        $data['products'] = $products ? $products : '';
+        
         $data['min_price'] = $min_price ? $min_price : '';
         $data['max_price'] = $max_price ? $max_price : '';
         return view('user.shop', $data);
@@ -166,7 +181,6 @@ class SiteController extends Controller
 
     public function minus_product(Request $request){
         if($request->isMethod('post')){
-            // preview($request->input());
             $cartId = $request->input('cart_id');
             $cartId = decrypt($cartId);
             $cart = Cart::where(['id' => $cartId ])->first();
@@ -181,7 +195,6 @@ class SiteController extends Controller
     }
     public function add_product(Request $request){
         if($request->isMethod('post')){
-            // preview($request->input());
             $cartId = $request->input('cart_id');
             $cartId = decrypt($cartId);
             $cart = Cart::where(['id' => $cartId ])->first();
@@ -191,7 +204,6 @@ class SiteController extends Controller
     }
     public function remove_product(Request $request){
         if($request->isMethod('post')){
-            // preview($request->input());
             $cartId = $request->input('cart_id');
             $cartId = decrypt($cartId);
             $cart = Cart::where(['id' => $cartId ])->first();
